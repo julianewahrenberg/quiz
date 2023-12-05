@@ -50,13 +50,19 @@ while antwort.upper() == "JA":
       print("B:", frage[2])
       print("C:", frage[3])
       print("D:", frage[4])
-#Fragen nach Antwort
-      if i == 0:
-         antwort = input("Was ist deine Antwort?")
-      else:
-         antwort = input("Was denkst du dieses Mal? Oder nimm die bis jetzt erreichten Punkte mit nach hause und beende das Spiel mit \"Ende\".")
 
-#Reaktion auf Antwort
+# Fragen nach Antwort
+      gueltige_antworten = ["A", "B", "C", "D", "ENDE"]
+      antwort = ""
+      while not antwort.upper() in gueltige_antworten:
+         if i == 0:
+            antwort = input("Was ist deine Antwort?")
+         else:
+            antwort = input("Was denkst du dieses Mal? Oder nimm die bis jetzt erreichten Punkte mit nach hause und beende das Spiel mit \"Ende\".")
+         if not antwort.upper() in gueltige_antworten:
+            print("Das habe ich nicht verstanden. Bitte gib' a, b, c, d oder Ende ein!")
+
+# Reaktion auf Antwort
       if antwort.upper() == frage[5]:
          print("perfekt! Du hast jetzt", (frage[6]), "Punkte.\n")
       elif antwort.upper() == "ENDE":
@@ -64,7 +70,7 @@ while antwort.upper() == "JA":
          print("Ok, dann gehst du mit", vorigefrage[6], "Punkten nach Hause.")
          i = 15
       else:
-         print("das stimmt so nicht! Du bist raus und deine Punkte weg.")
+         print("Das stimmt so nicht! Du bist raus und deine Punkte weg.")
          i = 15
 
       i = i + 1
