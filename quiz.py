@@ -101,6 +101,7 @@ while antwort.upper() == "JA":
          print("Perfekt! Du hast jetzt", (frage[6]), "Punkte.\n")
       elif antwort.upper() == "JOKER":
          print("Ok, Du hast Deinen 50:50 Joker eingesetzt.")
+         anzahl_joker = anzahl_joker - 1
          joker_ist_aktiv = True
       elif antwort.upper() == "ENDE":
          vorigefrage = fragen[i-1]
