@@ -15,7 +15,10 @@
 # *** Anfang des Programms ***
 
 # Begrüßung (a)
-print("\nLang ist es her und jetzt ist es endlich wieder soweit:\nHerzlich willkommen zu einer neuen Ausgabe von Wer wird Millionär!\nDas heutige Thema lautet: \"Quer durch Afrika\"\nEs geht direkt los!\n")
+print("\nWie soll ich Dich nennen?")
+name = input()
+
+print("\nLang ist es her und jetzt ist es endlich wieder soweit:\nHerzlich willkommen", name, "zu einer neuen Ausgabe von Wer wird Millionär!\nDas heutige Thema lautet: \"Quer durch Afrika\"\nEs geht direkt los!\n")
 
 # Liste an Fragen (b)
 fragen = [
@@ -37,11 +40,29 @@ fragen = [
    ["wie viel Stunden Zeitdifferenz herrscht zwischen Südafrika und Deutschland während der deutschen Winterzeit", "10", "0", "6", "3", "B", "1000000", [1,4]],
 ]
 
-anzahl_joker = 1
-joker_ist_aktiv = False
+
 # Beginn der Schleife über die Spiele
 antwort = "JA"
 while antwort.upper() == "JA":
+
+   punkte = 0
+   anzahl_joker = 1
+   joker_ist_aktiv = False
+
+   # Versuchen, den aktuellen Highscore zu lesen
+   highscore_datei = "highscore.txt"
+   highscore_name = "Niemand"
+   highscore_punkte = "0"
+
+   try:
+      datei = open(highscore_datei, "r")
+      highscore_name = datei.readline().strip()
+      highscore_punkte = datei.readline().strip()
+      datei.close()
+      print("Der Highscore ist", highscore_punkte, "von", highscore_name)
+      print("Mal sehen, ob Du das toppen kannst!\n")
+   except:
+      print("Aktuell gibt es noch keinen Highscore.\n")
 
    # Beginn der Schleife über die Fragen in einem Spiel
    i = 0
@@ -106,8 +127,10 @@ while antwort.upper() == "JA":
          anzahl_joker = anzahl_joker - 1
          joker_ist_aktiv = True
       elif antwort.upper() == "ENDE":
-         vorigefrage = fragen[i-1]
-         print("Ok, dann gehst du mit", vorigefrage[6], "Punkten nach Hause.")
+         if i > 0:
+            vorigefrage = fragen[i-1]
+            punkte = vorigefrage[6]
+         print("Ok, dann gehst du mit", punkte, "Punkten nach Hause.")
          i = 15
       else:
          print("Das stimmt so nicht! Du bist raus und deine Punkte weg.")
@@ -116,7 +139,15 @@ while antwort.upper() == "JA":
       if not joker_ist_aktiv:
          i = i + 1
 
-# Nochmal spielen
+   # Schauen, ob es neuen Highscore gibt:
+   if int(punkte) >= int(highscore_punkte):
+      print("Du hast den Highscore geknackt!")
+      print(name, file=open(highscore_datei, "w"))
+      print(punkte, file=open(highscore_datei, "a"))
+   else:
+      print("Du hast weniger als den Highscore. Du hast es leider nicht auf die Liste geschafft.")
+
+# Nochmal spielen?
    antwort = input("Willst du noch eine Runde spielen? Dann tippe \"JA\", ansonsten etwas anderes.")
    if antwort.upper() == "JA":
       print("Auf gehts zur nächsten Runde!")
