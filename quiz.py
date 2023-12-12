@@ -70,35 +70,28 @@ while antwort.upper() == "JA":
       frage = fragen[i]
       # Präsentation der Frage (b)
         # Joker angewendet (d)
-      print("Mit der folgenden Frage erreichst Du", frage[6], "Punkte:")
-      print(frage[0])
-      if joker_ist_aktiv == True:
-         if 1 in frage[7]:
-            print("A:", frage[1], " <- IST FALSCH.")
-         else:
-             print("A:", frage[1])
 
-         if 2 in frage[7]:
-            print("B:", frage[2], " <- IST FALSCH.")
-         else:
-             print("B:", frage[2])
-
-         if 3 in frage[7]:
-            print("C:", frage[3], " <- IST FALSCH.")
-         else:
-             print("C:", frage[3])
-
-         if 4 in frage[7]:
-            print("D:", frage[4], " <- IST FALSCH.")
-         else:
-             print("D:", frage[4])
-         # Joker nicht angewendet (d)
-         joker_ist_aktiv = False
-      else:
+      if not joker_ist_aktiv:
+         print("Mit der folgenden Frage erreichst Du", frage[6], "Punkte:")
+         print(frage[0])
          print("A:", frage[1])
          print("B:", frage[2])
          print("C:", frage[3])
          print("D:", frage[4])
+      else:
+         print("Folgende Fragen bleiben übrig:")
+         if not 1 in frage[7]:
+             print("A:", frage[1])
+         if not 2 in frage[7]:
+             print("B:", frage[2])
+         if not 3 in frage[7]:
+             print("C:", frage[3])
+         if not 4 in frage[7]:
+             print("D:", frage[4])
+         # Joker nicht angewendet (d)
+         joker_ist_aktiv = False
+
+
 
 # Fragen nach Antwort (c,d)
       if anzahl_joker > 0:
