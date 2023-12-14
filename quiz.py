@@ -1,6 +1,6 @@
-###########################################################################################################
+############################################################################################################################
 # (a) Quiz im Stil von „Wer wird Millionär“
-###########################################################################################################
+############################################################################################################################
 #                         Autor: Juliane Wahrenberg
 #
 # (b) Dem Benutzer werden der Reihe nach Fragen mit vier möglichen Antworten
@@ -9,13 +9,14 @@
 #     d) benutzt.
 # (d) Der Benutzer kann einmal in der Runde ein 50/50 Joker anwenden undn das Spiel vorzeitig beenden
 # (e) Der Benutzer kann mit richtigen Antworten Punkte erreichen und das Spiel vorzeitig beenden
+# (f) Es gibt eine persistente Highscore Liste, auf die es der Benutzer duch überteffen des alten Highscores schaffen kann
 #
-###########################################################################################################
+###########################################################################################################################
 
 # *** Anfang des Programms ***
 
 # Begrüßung (a)
-print("\nWie soll ich Dich nennen?")
+print("\nVerrätst du mir deinen Benutzername?")
 name = input()
 
 print("\nLang ist es her und jetzt ist es endlich wieder soweit:\nHerzlich willkommen", name, "zu einer neuen Ausgabe von Wer wird Millionär!\nDas heutige Thema lautet: \"Quer durch Afrika\"\nEs geht direkt los!\n")
@@ -25,9 +26,9 @@ fragen = [
 #  ["Frage", "Antwort A", "Antwort B", "Antwort C", "Antwort D", "Richtige Antwort", Punkte, [Antworten, um bei Joker zu streichen]]
    ["Wie viele Giraffen leben in Afrika?", "2.500", "68.000", "15.000", "79.000", "B", "50", [1,3]],
    ["Wie viele Tage hat ein SchaltJahr in Afrika?", "364", "510", "365", "366", "D", "100", [1,3]],
-   ["Auf welchem Komntinent liegt Timbuktu?", "Asien", "Australien", "Deutschland", "Afrika", "D", "200", [1,3]],
+   ["Auf welchem Kontinent liegt Timbuktu?", "Asien", "Australien", "Deutschland", "Afrika", "D", "200", [1,3]],
    ["In welchem afrikanischen Land kann man die meißten Pyramiden bewundern?", "Elfenbeinküste", "Ägypten", "Marokko", "Sudan", "D", "300", [1,3]],
-   ["Welche Sprache wird in Südafrika hauptsächlich gesprochen?", "Französisch", "Spanisch", "Englisch","Östereichisch", "C", "500", [1,3]],
+   ["Welche Sprache wird in Südafrika hauptsächlich gesprochen?", "Französisch", "Spanisch", "Englisch","Östereichisch", "C", "500", [1,4]],
    ["Die Ägyptischen Pyramiden sind nicht nur sehr bekannt, sondern auch sehr groß.\nWie viele Elefanten ist die größte Pyramide, die cheops Pyramide, hoch?", "50", "105", "43", "19", "C", "1000", [1,4]],
    ["Welche Tierart ist untypisch für die afrikanische Savanne?", "Nilpferde", "Nashörner", "Pinguine", "Strauße", "C", "2000", [1,2]],
    ["Wie viele Läner liegen auf dem Kontinent Afrika?", "54", "88", "5", "33", "A", "4000", [2,3]],
@@ -49,7 +50,7 @@ while antwort.upper() == "JA":
    anzahl_joker = 1
    joker_ist_aktiv = False
 
-   # Versuchen, den aktuellen Highscore zu lesen
+   # Versuchen, den aktuellen Highscore zu lesen (f)
    highscore_datei = "highscore.txt"
    highscore_name = "Niemand"
    highscore_punkte = "0"
@@ -59,12 +60,12 @@ while antwort.upper() == "JA":
       highscore_name = datei.readline().strip()
       highscore_punkte = datei.readline().strip()
       datei.close()
-      print("Der Highscore ist", highscore_punkte, "von", highscore_name)
+      print("Der aktuelle Highscore ist", highscore_punkte, "von", highscore_name)
       print("Mal sehen, ob Du das toppen kannst!\n")
    except:
-      print("Aktuell gibt es noch keinen Highscore.\n")
+      print("Aktuell gibt es noch keinen Highscore. Mal schauen ob du einen neuen Highscore aufstellen kannst!\n")
 
-   # Beginn der Schleife über die Fragen in einem Spiel
+   # Schleife über die Fragen in einem Spiel
    i = 0
    while i < 15:
       frage = fragen[i]
@@ -103,42 +104,42 @@ while antwort.upper() == "JA":
          if i == 0:
             print("Was ist deine Antwort?")
          else:
-            print("Was denkst du dieses Mal?\nDu kannst auch deine bis jetzt erreichten Punkte mit nach hause und beende das Spiel mit \"Ende\" beenden.")
+            print("Was denkst du dieses Mal?\nDu kannst auch deine bis jetzt erreichten Punkte mit nach Hause und das Spiel mit \"Ende\" beenden.")
          if anzahl_joker > 0:
             print("Du kannst auch mit \"Joker\" auch Deinen 50:50 Joker einlösen.\nAber denk dran: Du hast nur einen in der gesamten Runde.\n")
          antwort = input()
          if not antwort.upper() in gueltige_antworten:
-            print("Das habe ich nicht verstanden. Bitte gib' a, b, c, d Ende ein!")
+            print("Das habe ich nicht verstanden. Bitte gib' a, b, c, d Ende ein!") # Benutzer hat eine ungültige Eingabe getippt
             if anzahl_joker > 0:
                print("Oder Joker.")
 
 # Reaktion auf Antwort (e)
       if antwort.upper() == frage[5]:
-         print("Perfekt! Du hast jetzt", (frage[6]), "Punkte.\n")
+         print("Perfekt! Du hast jetzt", (frage[6]), "Punkte.\n")  # Richtige eingabe
       elif antwort.upper() == "JOKER":
-         print("Ok, Du hast Deinen 50:50 Joker eingesetzt.")
+         print("Ok, Du hast Deinen 50:50 Joker eingesetzt.") # Joker
          anzahl_joker = anzahl_joker - 1
          joker_ist_aktiv = True
-      elif antwort.upper() == "ENDE":
+      elif antwort.upper() == "ENDE": # Spiel vorzeitig beendet
          if i > 0:
             vorigefrage = fragen[i-1]
             punkte = vorigefrage[6]
          print("Ok, dann gehst du mit", punkte, "Punkten nach Hause.")
-         i = 15
+         i = 15 # Damit geht es nicht mehr in die nächste Schleife
       else:
-         print("Das stimmt so nicht! Du bist raus und deine Punkte weg.")
-         i = 15
+         print("Das stimmt so nicht! Du bist raus und deine Punkte weg.") # Falsche Antwort
+         i = 15 # Damit geht es nicht mehr in die nächste Schleife
 
       if not joker_ist_aktiv:
          i = i + 1
 
-   # Schauen, ob es neuen Highscore gibt:
+   # Schauen, ob es neuen Highscore gibt (f):
    if int(punkte) >= int(highscore_punkte):
-      print("Du hast den Highscore geknackt!")
+      print("Du hast den Highscore geknackt und es somit auf die Liste geschafft!")
       print(name, file=open(highscore_datei, "w"))
       print(punkte, file=open(highscore_datei, "a"))
    else:
-      print("Du hast weniger als den Highscore. Du hast es leider nicht auf die Liste geschafft.")
+      print("Du hast leider weniger Punkte als der aktuelle Highscore. Du hast ihn leider nicht geknackt und es somit nicht auf die Liste geschafft.")
 
 # Nochmal spielen?
    antwort = input("Willst du noch eine Runde spielen? Dann tippe \"JA\", ansonsten etwas anderes.")
