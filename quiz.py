@@ -38,7 +38,7 @@ fragen = [
    ["In welchem afrikanischen Land fand 2010 die Fußballweltmeisterschaft statt?", "Südafrika", "Niger", "Elfenbeinküste", "Ägypten", "A", "64000", [2,4]],
    ["Wie viel Kilogramm Fleisch isst ein Löwe durchschnittlich im Monat? ", "50", "120", "210", "300", "C", "125000", [1,4]],
    ["Welches Land liegt auf dem afrikanischen Kontinent?", "Kenia", "Indien", "Östereich", "Argentinien", "A", "500000", [3,4]],
-   ["wie viel Stunden Zeitdifferenz herrscht zwischen Südafrika und Deutschland während der deutschen Winterzeit", "10", "0", "6", "3", "B", "1000000", [1,4]],
+   ["wie viel Stunden Zeitdifferenz herrscht zwischen Südafrika und Deutschland während der deutschen Winterzeit?", "10", "0", "6", "3", "B", "1000000", [1,4]],
 ]
 
 
@@ -136,8 +136,8 @@ while antwort.upper() == "JA":
       if not joker_ist_aktiv:
          i = i + 1
 
-   # Schauen, ob es neuen Highscore gibt (f):
-   if int(punkte) >= int(highscore_punkte):
+   # Schauen, ob es neuen Highscore gibt (Null Punkte gelten nicht) (f):
+   if int(punkte) >= int(highscore_punkte) and int(punkte) > 0:
       print("Du hast den Highscore geknackt und es somit auf die Liste geschafft!")
       print(name, file=open(highscore_datei, "w"))
       print(punkte, file=open(highscore_datei, "a"))
