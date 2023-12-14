@@ -31,13 +31,13 @@ fragen = [
    ["Welche Sprache wird in Südafrika hauptsächlich gesprochen?", "Französisch", "Spanisch", "Englisch","Östereichisch", "C", "500", [1,4]],
    ["Die Ägyptischen Pyramiden sind nicht nur sehr bekannt, sondern auch sehr groß.\nWie viele Elefanten ist die größte Pyramide, die cheops Pyramide, hoch?", "50", "105", "43", "19", "C", "1000", [1,4]],
    ["Welche Tierart ist untypisch für die afrikanische Savanne?", "Nilpferde", "Nashörner", "Pinguine", "Strauße", "C", "2000", [1,2]],
-   ["Wie viele Läner liegen auf dem Kontinent Afrika?", "54", "88", "5", "33", "A", "4000", [2,3]],
-   ["Welcher Ozean liegt im Westen von Afrika", "Indische Ozean", "Atlanitsche Ozean", "Mittelmeer", "pazifische Ozean", "B", "8000", [1,3]],
+   ["Wie viele Länder liegen auf dem Kontinent Afrika?", "54", "88", "5", "33", "A", "4000", [2,3]],
+   ["Welcher Ozean liegt im Westen von Afrika", "Indische Ozean", "Atlantische Ozean", "Mittelmeer", "pazifische Ozean", "B", "8000", [1,3]],
    ["Wie heißt der längste Fluss in Afrika?", "Niger", "Kongo", "Rhein", "Nil", "D", "16000", [1,3]],
-   ["Wie viel größer ist Europa als Afrika?", "doppelt so groß", "fünf mal so groß", "sieben mal so groß", "dreimal so groß", "D", "32000", [1,3]],
+   ["Wie viel größer ist Afrika als Europa?", "doppelt so groß", "fünf mal so groß", "sieben mal so groß", "dreimal so groß", "D", "32000", [1,3]],
    ["In welchem afrikanischen Land fand 2010 die Fußballweltmeisterschaft statt?", "Südafrika", "Niger", "Elfenbeinküste", "Ägypten", "A", "64000", [2,4]],
    ["Wie viel Kilogramm Fleisch isst ein Löwe durchschnittlich im Monat? ", "50", "120", "210", "300", "C", "125000", [1,4]],
-   ["Welches Land liegt nich auf dem afrikanischen Kontinent?", "Kenia", "Indien", "Östereich", "Argentinien", "A", "500000", [3,4]],
+   ["Welches Land liegt auf dem afrikanischen Kontinent?", "Kenia", "Indien", "Östereich", "Argentinien", "A", "500000", [3,4]],
    ["wie viel Stunden Zeitdifferenz herrscht zwischen Südafrika und Deutschland während der deutschen Winterzeit", "10", "0", "6", "3", "B", "1000000", [1,4]],
 ]
 
@@ -113,9 +113,10 @@ while antwort.upper() == "JA":
             if anzahl_joker > 0:
                print("Oder Joker.")
 
-# Reaktion auf Antwort (e)
+      # Reaktion auf Antwort (e)
       if antwort.upper() == frage[5]:
-         print("Perfekt! Du hast jetzt", (frage[6]), "Punkte.\n")  # Richtige eingabe
+         punkte = frage[6]
+         print("Perfekt! Du hast jetzt", punkte, "Punkte.\n")  # Richtige eingabe
       elif antwort.upper() == "JOKER":
          print("Ok, Du hast Deinen 50:50 Joker eingesetzt.") # Joker
          anzahl_joker = anzahl_joker - 1
@@ -128,8 +129,10 @@ while antwort.upper() == "JA":
          i = 15 # Damit geht es nicht mehr in die nächste Schleife
       else:
          print("Das stimmt so nicht! Du bist raus und deine Punkte weg.") # Falsche Antwort
+         punkte = 0
          i = 15 # Damit geht es nicht mehr in die nächste Schleife
 
+      # Gehe nur in die nächste Frage, wenn der Joker nicht gezogen wurde.
       if not joker_ist_aktiv:
          i = i + 1
 
